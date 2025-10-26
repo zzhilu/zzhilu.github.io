@@ -41,26 +41,36 @@ zzhilu@ubuntu:~$
 
 ## 2. 查看和定位
 ```
-**pwd**
+pwd
 ```
 显示当前工作目录的路径。
-
-**ls**  
+```
+ls
+``` 
 列出当前目录下的文件和文件夹。
-
-**ls -l**  
+```
+ls -l  
+```
 以详细列表的方式显示文件信息，包括权限、大小、时间等。
 
-**ls -a**  
+```
+ls -a
+```  
 显示所有文件，包括隐藏文件（以点 `.` 开头的文件）。
 
-**cd /home**  
+```
+cd /home
+```  
 进入 `/home` 目录。
 
-**cd ..**  
+```
+cd ..
+```  
 返回上一级目录。
 
-**cd ~**  
+```
+cd ~
+```  
 回到主目录。
 
 📌 **小提示**：  
@@ -71,22 +81,34 @@ zzhilu@ubuntu:~$
 
 ## 3. 文件与目录操作
 
-**mkdir test**  
+```
+mkdir test
+```  
 创建一个名为 `test` 的目录。
 
-**rmdir test**  
+```
+rmdir test
+```  
 删除名为 `test` 的空目录。
 
-**touch hello.txt**  
+```
+touch hello.txt
+```  
 创建一个名为 `hello.txt` 的空文件。
 
-**cp hello.txt /tmp**  
+```
+cp hello.txt /tmp
+```  
 将文件 `hello.txt` 复制到 `/tmp` 目录中。
 
-**mv hello.txt test/**  
+```
+mv hello.txt test/
+```  
 将文件 `hello.txt` 移动到 `test` 目录下。
 
-**rm hello.txt**  
+```
+rm hello.txt
+```  
 删除文件 `hello.txt`。  
 ⚠️ 删除是永久的，没有“回收站”，所以执行 `rm` 时要小心。
 
@@ -94,16 +116,24 @@ zzhilu@ubuntu:~$
 
 ## 4. 查看文件内容
 
-**cat file.txt**  
+```
+cat file.txt
+```
 直接输出文件内容。
 
-**less file.txt**  
+```
+less file.txt
+```  
 分页查看文件内容，可用上下键滚动，`q` 退出。
 
-**head -n 10 file.txt**  
+```
+head -n 10 file.txt
+```  
 查看文件的前 10 行。
 
-**tail -n 10 file.txt**  
+```
+tail -n 10 file.txt
+```  
 查看文件的后 10 行。
 
 📘 `less` 是最实用的查看命令之一，可以上下滚动阅读。
