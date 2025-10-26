@@ -3,10 +3,11 @@ title: "UAB Exercicis Linux-comandes：题解（基础命令版）"
 date: 2025-10-27
 layout: page
 permalink: /notes/linux-exercicis/
+tags: [linux, exercicis]
 ---
 
 # 🧩 Exercicis Linux-comandes（UAB）题解汇总
-> 每题仅用最基础命令（不使用 awk / sed）
+
 
 ---
 
