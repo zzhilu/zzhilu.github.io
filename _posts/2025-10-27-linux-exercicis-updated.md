@@ -1,12 +1,12 @@
 ---
-title: "UAB Exercicis Linux-comandes：题解（基础命令版）"
+title: "UAB Exercicis Linux-comandes：题解"
 date: 2025-10-27
 layout: page
 permalink: /notes/linux-exercicis/
 tags: [linux, exercicis]
 ---
 
-# 🧩 Exercicis Linux-comandes（UAB）题解汇总
+#  Exercicis Linux-comandes（UAB）题解汇总
 
 
 ---
