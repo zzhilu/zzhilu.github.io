@@ -11,7 +11,7 @@ permalink: /notes/linux-exercicis/
 ---
 
 ## 📸 图片 1：目录结构（dir1–dir3–dir4）
-![目录结构图 1](../assets/img/linux-structure-1.png)
+![目录结构图 1]({{ '/assets/img/linux-structure-1.png' | relative_url }})
 
 ---
 
@@ -322,6 +322,9 @@ mv part1 file1bis
 ## 第 19 题
 **题目原文：**
 （从 Carol 目录开始的一系列操作，涉及切换与复制。）
+
+![目录结构图 2]({{ '/assets/img/linux-structure-2.png' | relative_url }})
+
 
 **解法与解释（主要步骤）：**
 
