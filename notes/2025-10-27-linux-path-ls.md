@@ -3,6 +3,7 @@ title: "Linux 查看与定位命令大全：路径、cd 与 ls 详解"
 date: 2025-10-27
 layout: page
 permalink: /notes/linux-path-ls/
+tags: [linux, 命令]
 ---
 
 # 🧭 Linux 查看与定位命令大全  
