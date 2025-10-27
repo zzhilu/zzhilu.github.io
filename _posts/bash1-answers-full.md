@@ -427,18 +427,53 @@ Escriure un script que comprovi si les tres primeres paraules d’un fitxer que 
 ### ✅ 解法（你的脚本）
 ```bash
 #!/bin/bash
+
 echo "Introdueix el nom del fitxer:"
 read fitxer
-paraules=($(head -1 "$fitxer"))
-if [ "${paraules[0]}" = "${paraules[1]}" ] && [ "${paraules[1]}" = "${paraules[2]}" ]; then
-  echo "Les tres primeres paraules són iguals"
+
+# 检查文件是否存在
+if [ ! -f "$fitxer" ]; then
+    echo "Error: El fitxer '$fitxer' no existeix"
+    exit 1
+fi
+
+# 读取文件的第一行
+linia=$(head -n 1 "$fitxer")
+
+# 将行分割成单词数组
+paraules=($linia)
+
+# 检查是否有至少三个单词
+if [ ${#paraules[@]} -lt 3 ]; then
+    echo "Error: El fitxer ha de tenir almenys 3 paraules"
+    exit 1
+fi
+
+# 获取前三个单词
+paraula1=${paraules[0]}
+paraula2=${paraules[1]}
+paraula3=${paraules[2]}
+
+echo "Primera paraula: $paraula1"
+echo "Segona paraula:  $paraula2"
+echo "Tercera paraula: $paraula3"
+echo ""
+
+# 比较三个单词
+if [ "$paraula1" = "$paraula2" ] && [ "$paraula2" = "$paraula3" ]; then
+    echo "✅ Les tres primeres paraules són IGUALS"
 else
-  echo "Les tres primeres paraules són diferents"
+    echo "❌ Les tres primeres paraules són DIFERENTS"
 fi
 ```
 
 ### 💬 解释
-从文件第一行读取单词数组，比较前三个元素是否相等。
+- ${#paraules[@]} 获取数组元素个数
+- paraules=($linia) 将字符串分割成单词数组
+- ${paraules[0]} 访问第一个元素
+- [ "$str1" = "$str2" ] 比较字符串相等性
+
+
 
 ---
 
