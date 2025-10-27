@@ -1,6 +1,5 @@
-# Bash 题目答案与讲解（Tema 2 bash 2）— 新手友好版（不使用 IFS= 与 sed）
+# Bash 题目答案与讲解（Tema 2 bash 2）
 
-> 说明：本版尽量使用最基础命令与写法：`for`、`while read`、`head`、`tail`、`cut`、`grep`、`echo`、`read`、`seq` 等；**不使用 `IFS=` 与 `sed`**。解释均放在代码块之外，便于阅读与打印。
 
 ---
 
@@ -26,7 +25,7 @@ echo "Correcte. Has passat 3 arguments: $@"
 
 ---
 
-## 2) `arg2.sh` — 显示 3 个参数并连接输出（用 `for` 拼接）
+## 2) `arg2.sh` — 显示 3 个参数并连接输出
 
 **题目原文**：  
 “Escriure un script anomenat **arg2.sh** al qual li passem **3 arguments** i **els mostra per pantalla de forma concatenada**.”
@@ -34,27 +33,37 @@ echo "Correcte. Has passat 3 arguments: $@"
 ### ✅ 解法（脚本）
 ```bash
 #!/bin/bash
-if [ "$#" -ne 3 ]; then
-  echo "Error: calen 3 arguments."
-  echo "Ús: $0 a b c"
-  exit 1
+
+# 检查是否有3个参数
+if [ $# -ne 3 ]; then
+    echo "Error: Has de passar exactament 3 arguments"
+    echo "Ús: ./arg2.sh arg1 arg2 arg3"
+    exit 1
 fi
 
-out=""
-for x in "$@"; do
-  out="${out}${x}"
-done
-printf "%s
-" "$out"
+# 获取三个参数
+arg1=$1
+arg2=$2
+arg3=$3
+
+# 连接并显示
+resultat="$arg1$arg2$arg3"
+echo "$resultat"
 ```
 
 ### 🗒️ 逐行说明
 - 校验恰好 3 个参数。  
-- 用 `for x in "$@"` 逐个拼接到 `out`，最后一次性输出。
+-$1：第一个参数
+
+-$2：第二个参数
+
+-$3：第三个参数
+
+-$#：参数总个数。
 
 ---
 
-## 3) `arg3.sh` — 显示任意文件的任意一行（用 `for + seq`）
+## 3) `arg3.sh` — 显示任意文件的任意一行
 
 **题目原文**：  
 “Escriure un script anomenat **arg3.sh** que mostri per pantalla **una línia qualsevol d’un fitxer qualsevol**. El **número de línia** i el **nom del fitxer** s’hauran d’introduir **com arguments**。”
@@ -99,7 +108,12 @@ head -n "$linia" "$fitxer" | tail -n 1
 ```
 
 ### 🗒️ 逐行说明
-- 用 `seq 1 N` 结合 `for` 迭代 1..N；每次用 `head|tail` 取第 `i` 行并覆盖到 `line`。  
+
+- exit 1：以错误状态退出（1表示错误）。
+- ne 2：不等于2（not equal to 2）。  
+- `[ ! -f "$fitxer" ]`：如果文件不存在
+-  `=~ ^[0-9]+$`：检查是否只包含数字，防止用户输入字母、负数或零
+-  `head -n "$linia" "$fitxer"`：显示文件的前 $linia 行
 - 循环结束时 `line` 就是第 `N` 行内容。
 
 ---
@@ -112,24 +126,36 @@ head -n "$linia" "$fitxer" | tail -n 1
 ### ✅ 解法（脚本）
 ```bash
 #!/bin/bash
-# Ús: ./factorial.sh <n>
-if [ "$#" -ne 1 ]; then
-  echo "Ús: $0 <n_enter_no_negatiu>"
-  exit 1
+
+# 检查参数数量
+if [ $# -ne 1 ]; then
+    echo "Error: Has de passar exactament 1 argument"
+    echo "Ús: ./factorial.sh <nombre>"
+    exit 1
 fi
 
-n="$1"
-if ! echo "$n" | grep -Eq '^[0-9]+$'; then
-  echo "Error: n ha de ser un enter no negatiu."
-  exit 1
+# 获取参数
+n=$1
+
+# 检查是否为正整数
+if ! [[ "$n" =~ ^[0-9]+$ ]] || [ "$n" -lt 0 ]; then
+    echo "Error: El nombre ha de ser un enter positiu"
+    exit 1
 fi
 
-fact=1
-for i in $(seq 1 "$n"); do
-  fact=$((fact * i))
-done
+# 计算阶乘
+factorial=1
 
-echo "$n! = $fact"
+if [ $n -eq 0 ]; then
+    # 0! = 1
+    factorial=1
+else
+    for ((i=1; i<=n; i++)); do
+        factorial=$((factorial * i))
+    done
+fi
+
+echo "$n! = $factorial"
 ```
 
 ### 🗒️ 逐行说明
