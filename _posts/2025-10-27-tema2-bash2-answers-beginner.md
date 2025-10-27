@@ -1,5 +1,5 @@
 ---
-title: "Bash 题目答案与讲解（Tema 2 bash 2）"
+title: "Bash 题目 答案 与 讲解（Tema 2 bash 2）"
 date: 2025-10-27
 categories: [Linux, 学习笔记]
 tags: [linux, exercicis, bash]
