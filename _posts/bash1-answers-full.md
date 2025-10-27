@@ -128,17 +128,40 @@ Escriure un script que modifiqui el primer camp d’una línia qualsevol d’un 
 ### ✅ 解法（你的脚本）
 ```bash
 #!/bin/bash
+
 echo "Introdueix el nom del fitxer:"
 read fitxer
+
 echo "Introdueix el número de línia:"
 read linia
+
 echo "Introdueix la nova cadena pel primer camp:"
 read nova_cadena
-awk -F: -v linia="$linia" -v nova="$nova_cadena" 'NR==linia {$1=nova} {print}' OFS=":" "$fitxer" > tmp && mv tmp "$fitxer"
+
+# 临时文件
+temp="temp.txt"
+> "$temp"
+contador=1
+
+# 逐行处理
+while read linea
+do
+    if [ $contador -eq $linia ]; then
+        # 使用 cut 提取第一个冒号后的所有内容
+        resta_camps=$(echo "$linea" | cut -d: -f2-)
+        echo "$nova_cadena:$resta_camps" >> "$temp"
+    else
+        echo "$linea" >> "$temp"
+    fi
+    contador=$((contador + 1))
+done < "$fitxer"
+
+mv "$temp" "$fitxer"
+echo "Modificació completada! Línia $linia actualitzada."
 ```
 
 ### 💬 解释
-用 `awk` 按冒号分隔字段：当行号等于输入的目标行时，将第 1 列改为新内容，再输出到临时文件覆盖原文件。
+使用 cut 提取第一个冒号后的所有内容
 
 ---
 
