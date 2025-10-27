@@ -1,7 +1,6 @@
 
-# Bash 题目答案与讲解（Tema 2 范围）
+# Bash 题目答案与讲解（Tema 2 bash 2）
 
-> 仅使用 **Tema 2** 讲义中涉及到的 Bash 知识点（变量、参数 `$1`/`$#`/`$@`、条件 `if`/`case`、循环 `while`/`for`/`until`、算术扩展 `$(( ))`、`read`、函数 `function`/`local` 等）完成《Prob-bash-2-2526.pdf》里的所有题目。题目原文摘自 PDF。菜单题使用**函数版**实现；与“esportistes”相关的数据格式为 `nom:cognom1:cognom2:edat:esport:club`。
 
 ---
 
