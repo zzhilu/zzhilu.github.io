@@ -247,11 +247,30 @@ read b
 echo "Introdueix l'operació (+, -, x, /):"
 read op
 case $op in
-  "+") echo "$a + $b = $((a + b))" ;;
-  "-") echo "$a - $b = $((a - b))" ;;
-  "x") echo "$a x $b = $((a * b))" ;;
-  "/") echo "$a / $b = $((a / b))" ;;
-  *) echo "Operació no vàlida" ;;
+    "+")
+        resultat=$((num1 + num2))
+        echo "$num1 + $num2 = $resultat"
+        ;;
+    "-")
+        resultat=$((num1 - num2))
+        echo "$num1 - $num2 = $resultat"
+        ;;
+    "x")
+        resultat=$((num1 * num2))
+        echo "$num1 x $num2 = $resultat"
+        ;;
+    "/")
+        if [ $num2 -eq 0 ]; then
+            echo " Error: No es pot dividir per zero"
+        else
+            resultat=$((num1 / num2))
+            residu=$((num1 % num2))
+            echo "$num1 / $num2 = $resultat"
+            if [ $residu -ne 0 ]; then
+                echo "Residu: $residu"
+            fi
+        fi
+        ;;
 esac
 ```
 
