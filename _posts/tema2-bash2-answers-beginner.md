@@ -62,32 +62,40 @@ printf "%s
 ### ✅ 解法（脚本）
 ```bash
 #!/bin/bash
-# Ús: ./arg3.sh <numero_linia> <fitxer>
-if [ "$#" -ne 2 ]; then
-  echo "Ús: $0 <numero_linia> <fitxer>"
-  exit 1
+
+# 检查参数数量
+if [ $# -ne 2 ]; then
+    echo "Error: Has de passar exactament 2 arguments"
+    echo "Ús: ./arg3.sh <nom_fitxer> <numero_linia>"
+    exit 1
 fi
 
-linia="$1"
-fitxer="$2"
+fitxer=$1
+linia=$2
 
+# 检查文件是否存在
 if [ ! -f "$fitxer" ]; then
-  echo "Error: fitxer inexistent: $fitxer"
-  exit 1
+    echo "Error: El fitxer '$fitxer' no existeix"
+    exit 1
 fi
 
-if ! echo "$linia" | grep -Eq '^[0-9]+$'; then
-  echo "Error: el número de línia ha de ser enter positiu."
-  exit 1
+# 检查行号是否为正整数
+if ! [[ "$linia" =~ ^[0-9]+$ ]] || [ "$linia" -lt 1 ]; then
+    echo "Error: El número de línia ha de ser un nombre enter positiu"
+    exit 1
 fi
 
-line=""
-for i in $(seq 1 "$linia"); do
-  line=$(head -n "$i" "$fitxer" | tail -n 1)
-done
+# 获取文件总行数
+total_linies=$(wc -l < "$fitxer")
 
-printf "%s
-" "$line"
+# 检查行号是否超出范围
+if [ "$linia" -gt "$total_linies" ]; then
+    echo "Error: El fitxer només té $total_linies línies. No pots demanar la línia $linia."
+    exit 1
+fi
+
+# 显示指定行
+head -n "$linia" "$fitxer" | tail -n 1
 ```
 
 ### 🗒️ 逐行说明
@@ -139,44 +147,49 @@ echo "$n! = $fact"
 ```bash
 #!/bin/bash
 
+# 计算阶乘的函数
 factorial() {
-  local x="$1"
-  local res=1
-  for i in $(seq 1 "$x"); do
-    res=$((res * i))
-  done
-  echo "$res"
+    local num=$1
+    local result=1
+    
+    for ((i=1; i<=num; i++)); do
+        result=$((result * i))
+    done
+    
+    echo $result
 }
 
-echo -n "Introdueix m: "
+# 输入 m 和 n
+echo "Introdueix el valor de m:"
 read m
-echo -n "Introdueix n: "
+echo "Introdueix el valor de n:"
 read n
 
-if ! echo "$m" | grep -Eq '^[0-9]+$' || ! echo "$n" | grep -Eq '^[0-9]+$'; then
-  echo "Error: m i n han de ser enters no negatius."
-  exit 1
-fi
-if [ "$m" -le "$n" ]; then
-  echo "Error: es requereix m > n."
-  exit 1
+# 检查 m > n
+if [ $m -le $n ]; then
+    echo "Error: m ha de ser major que n"
+    exit 1
 fi
 
-mf=$(factorial "$m")
-nf=$(factorial "$n")
-m_nf=$(factorial $((m - n)))
+# 计算组合数
+fact_m=$(factorial $m)
+fact_n=$(factorial $n)
+fact_mn=$(factorial $((m - n)))
 
-result=$(( mf / (nf * m_nf) ))
-echo "C($m, $n) = $result"
+combinatori=$((fact_m / (fact_n * fact_mn)))
+
+echo "El nombre combinatori C($n,$m) = $combinatori"
 ```
 
+
+
 ### 🗒️ 逐行说明
-- `factorial()` 用 `for + seq` 计算阶乘；仅用到基础命令。  
+- `factorial()` 用 `for ` 计算阶乘；仅用到基础命令。  
 - 读取输入并做整数校验与不等关系校验，最后做整数运算得到结果。
 
 ---
 
-## 6) `menu.sh` — 函数版菜单（不使用 `IFS=`，用最基础逐行读取）
+## 6) `menu.sh` — 函数版菜单）
 
 **题目原文（摘要）**：  
 “Implementar un **script anomenat menu.sh** que mostri el menú amb 4 opcions：  
@@ -193,7 +206,7 @@ echo "C($m, $n) = $result"
 #!/bin/bash
 FITXER="esportistes"
 
-# 选项 1：平均年龄（逐行 read，不用 IFS= 与 sed）
+# 选项 1：平均年龄
 mitjana() {
   if [ ! -f "$FITXER" ]; then
     echo "Error: no s'ha trobat el fitxer '$FITXER'."
@@ -215,7 +228,7 @@ mitjana() {
   fi
 }
 
-# 选项 2：按 Club 列表（逐行 read + cut）
+# 选项 2：按 Club 列表（ read + cut）
 llistar_per_club() {
   if [ ! -f "$FITXER" ]; then
     echo "Error: no s'ha trobat el fitxer '$FITXER'."
@@ -270,9 +283,9 @@ done
 ```
 
 ### 🗒️ 逐行说明
-- **逐行读取**：`while read line; do ... done < "$FITXER"` 最基础、易懂，不需要设置 `IFS=`。  
+- **逐行读取**：`while read line; do ... done < "$FITXER"` 。  
 - **字段解析**：每行用 `cut -d: -fN` 提取所需列。  
-- **整型处理**：平均值做整数除法，符合题目常规要求。
+- **整型处理**：平均值做整数除法。
 
 ---
 
